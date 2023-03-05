@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dropdown } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const logo = require('../../images/logo.png');
 const iconChallenge = require('../../images/icons/icon_challenge.png');
@@ -46,6 +46,9 @@ const Wrapper = styled.div`
         img {
           margin-right: 8px;
         }
+        &.active {
+          color: #ff963c;
+        }
       }
       img {
         height: 32px;
@@ -73,10 +76,19 @@ const Wrapper = styled.div`
   }
 `;
 
-const items = [
+const items = history => [
   {
     key: '1',
-    label: <a onClick={e => e.preventDefault()}>自分の記録</a>,
+    label: (
+      <a
+        onClick={e => {
+          e.preventDefault();
+          history.push('/my-record');
+        }}
+      >
+        自分の記録
+      </a>
+    ),
   },
   {
     key: '2',
@@ -92,7 +104,16 @@ const items = [
   },
   {
     key: '5',
-    label: <a onClick={e => e.preventDefault()}>コラム一覧</a>,
+    label: (
+      <a
+        onClick={e => {
+          e.preventDefault();
+          history.push('/');
+        }}
+      >
+        コラム一覧
+      </a>
+    ),
   },
   {
     key: '6',
@@ -102,6 +123,8 @@ const items = [
 
 const Header = () => {
   const history = useHistory();
+  const location = useLocation();
+
   return (
     <Wrapper>
       <div className="header">
@@ -113,7 +136,12 @@ const Header = () => {
           className="logo"
         />
         <div className="menus">
-          <div className="menu">
+          <div
+            className={`menu ${
+              location.pathname === '/my-record' ? 'active' : ''
+            }`}
+            onClick={() => history.push('/my-record')}
+          >
             <img src={iconMemo} alt="iconMemo" /> 自分の記録
           </div>
           <div className="menu">
@@ -124,7 +152,7 @@ const Header = () => {
             お知らせ
             <div className="count">1</div>
           </div>
-          <Dropdown menu={{ items }}>
+          <Dropdown menu={{ items: items(history) }}>
             <a onClick={e => e.preventDefault()}>
               <img src={iconMenu} alt="iconMenu" />
             </a>

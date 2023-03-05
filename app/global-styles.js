@@ -191,19 +191,19 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  #app::-webkit-scrollbar-track
+  #app::-webkit-scrollbar-track, #exercises::-webkit-scrollbar-track
   {
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #777777;
   }
 
-  #app::-webkit-scrollbar
+  #app::-webkit-scrollbar, #exercises::-webkit-scrollbar
   {
     width: 6px;
     background-color: #777777;
   }
 
-  #app::-webkit-scrollbar-thumb
+  #app::-webkit-scrollbar-thumb, #exercises::-webkit-scrollbar-thumb
   {
     background-color: #FFCC21;
   }
@@ -254,6 +254,11 @@ const GlobalStyle = createGlobalStyle`
       background: linear-gradient(32.95deg, #FFCC21 8.75%, #FF963C 86.64%);
       box-shadow: none;
     }
+  }
+
+  .div-scroll {
+    margin-top: -64px;
+    padding-top: 64px;
   }
 `;
 

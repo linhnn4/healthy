@@ -8,12 +8,12 @@ import HighchartsReact from 'highcharts-react-official';
 import moment from 'moment';
 
 const Wrapper = styled.div`
-  width: 740px;
+  width: ${props => (props.isFull ? '100%' : '740px')};
   height: 312px;
   background: #2e2e2e;
 `;
 
-const BodyGraph = () => {
+const BodyGraph = ({ isFull = false }) => {
   const { data, isFetching } = useQuery(
     ['healthyService.fetchBodyGraph'],
     async () => {
@@ -26,8 +26,6 @@ const BodyGraph = () => {
     if (!Array.isArray(data) || data?.length <= 0) return [];
     return data;
   }, [data]);
-
-  console.log({ items });
 
   const options = React.useMemo(
     () => ({
@@ -82,7 +80,7 @@ const BodyGraph = () => {
 
   return (
     <Spin spinning={isFetching} size="large">
-      <Wrapper>
+      <Wrapper isFull={isFull}>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </Wrapper>
     </Spin>
